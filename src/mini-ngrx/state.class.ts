@@ -1,12 +1,9 @@
 /**
  * @copyright ngrx
  */
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject, Observable, queueScheduler } from 'rxjs';
+import { observeOn, scan } from 'rxjs/operators';
 import { Action, ActionReducer } from './index';
-import { observeOn } from 'rxjs/operator/observeOn';
-import { queue } from 'rxjs/scheduler/queue';
-import { scan } from 'rxjs/operator/scan';
 
 export class MiniState<T> extends BehaviorSubject<T> {
   constructor(
@@ -16,7 +13,7 @@ export class MiniState<T> extends BehaviorSubject<T> {
   ) {
     super(_initialState);
 
-    const actionInQueue$ = observeOn.call(actionsDispatcher$, queue);
+    const actionInQueue$ = observeOn.call(actionsDispatcher$, queueScheduler);
     const state$ = scan.call(
       actionInQueue$,
       (state: T, action: Action) => {

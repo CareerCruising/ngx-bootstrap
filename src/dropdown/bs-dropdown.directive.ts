@@ -4,7 +4,7 @@ import {
   OnInit, Output, Renderer2, ViewContainerRef
 } from '@angular/core';
 import { filter } from 'rxjs/operators';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { ComponentLoader, ComponentLoaderFactory } from '../component-loader/index';
 
 import { BsDropdownConfig } from './bs-dropdown.config';

@@ -15,14 +15,12 @@ import {
 } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { from, Observable, Subscription } from 'rxjs';
 import { ComponentLoader, ComponentLoaderFactory } from '../component-loader/index';
 import { TypeaheadContainerComponent } from './typeahead-container.component';
 import { TypeaheadMatch } from './typeahead-match.class';
 import { getValueFromObject, latinize, tokenize } from './typeahead-utils';
 import { debounceTime, filter, mergeMap, switchMap, toArray } from 'rxjs/operators';
-import 'rxjs/add/observable/from';
 
 @Directive({selector: '[typeahead]', exportAs: 'bs-typeahead'})
 export class TypeaheadDirective implements OnInit, OnDestroy {
@@ -356,7 +354,7 @@ export class TypeaheadDirective implements OnInit, OnDestroy {
           mergeMap((value: string) => {
             const normalizedQuery = this.normalizeQuery(value);
 
-            return Observable.from(this.typeahead)
+            return from(this.typeahead)
               .pipe(
                 filter((option: any) => {
                   return (
